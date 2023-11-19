@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
-import {FaArrowRight} from 'react-icons/fa'
+
 
 const Sidebar = () => {
     const [popularBlog,setPopularBlog]=useState([])
@@ -21,8 +21,8 @@ const Sidebar = () => {
     {
         popularBlog.slice(0,5).map((popular)=>(
             <div key={popular.id}>
-            <h4> {popular.title} </h4>
-            <Link to={""} className='flex gap-1 items-center font-medium py-1 hover:text-orange-500'> <p className=''>Read More </p><FaArrowRight className=''/> </Link>
+            <h4 className='text-sm'> {popular.title} </h4>
+            <Link to={""} className='font-medium py-1 hover:text-orange-500'> <p className=''>Read More </p> </Link>
             </div>
         ))
     }
@@ -36,8 +36,8 @@ const Sidebar = () => {
     {
         popularBlog.slice(6,10).map((popular)=>(
             <div key={popular.id}>
-            <h4> {popular.title} </h4>
-            <Link to={""} className='flex gap-1 items-center font-medium py-1 hover:text-orange-500'> <p className=''>Read More </p><FaArrowRight className=''/> </Link>
+            <h4 className='text-sm'> {popular.title} </h4>
+            <Link to={""} className='font-medium py-1 hover:text-orange-500'> <p className=''>Read More </p> </Link>
             </div>
         ))
     }

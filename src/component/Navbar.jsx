@@ -1,6 +1,7 @@
 // Navigation.js
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navigation = () => {
@@ -9,18 +10,22 @@ const Navigation = () => {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
-  const user = {
-    results: {
-      id: 843784,
-      name: "omar",
-    },
-  };
+  // const user = {
+  //   results: {
+  //     id: 843784,
+  //     name: "omar",
+  //   },
+  // };
+  const users= JSON.parse(localStorage.getItem("blogprofile"))
+  console.log("localstorage",users)
+  const {user}= useSelector((state)=>({...state.authentication}))
+  console.log('redux',user)
   return (
     <header className="bg-gray-800 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
         {/* Left Side: Logo */}
         <div className="flex items-center">
-          <Link>
+          <Link className="text-white">
             <span className="text-sm lg:text-lg font-semibold px-2 ">
               Your Logo
             </span>
@@ -28,18 +33,18 @@ const Navigation = () => {
         </div>
 
         {/* Middle: Dashboard and Add Product (Visible on Mobile Too) */}
-        {user?.results ? (
+        {user?.result ? (
           <div className="flex-grow md:flex md:justify-center ">
-            <a className="px-1"> Login as{user?.results?.name}</a>
-            <Link to={"/something"}>Dashboard</Link>
-            <Link className="px-1">Add Blog</Link>
-            <Link>Logout</Link>
+            <a className=" text-white"> Loginas:{user?.result?.name}</a>
+            <Link className="text-white px-2" to={"/something"}>Dashboard</Link>
+            <Link className="px-1 text-white">Add Blog</Link>
+            <Link className="text-white">Logout</Link>
           </div>
         ) : (
           <div className="flex-grow md:flex md:justify-center ">
-            <Link to={"/register"}>Register</Link>
+            <Link className="text-white" to={"/register"}>Register</Link>
 
-            <Link className="px-1" to={"/login"}>
+            <Link  className="px-1 text-white" to={"/login"}>
               Login
             </Link>
           </div>
@@ -47,11 +52,11 @@ const Navigation = () => {
 
         {/* Right Side: Navigation Links */}
         <nav className="hidden md:flex space-x-4">
-        <Link to="/">Home</Link>
-        <Link to="/blog" className="px-1">Blog</Link>
-        <Link to="/about">About</Link>
-        <Link to="/services">Services</Link>
-        <Link to="/contact">Contact</Link>
+        <Link className="text-white" to="/">Home</Link>
+        <Link  to="/blog" className="px-1 text-white">Blog</Link>
+        <Link className="text-white" to="/about">About</Link>
+        <Link className="text-white" to="/services">Services</Link>
+        <Link className="text-white" to="/contact">Contact</Link>
           {/* Add more links as needed */}
         </nav>
 
@@ -84,35 +89,35 @@ const Navigation = () => {
         <nav className={`md:hidden ${isMobileMenuOpen ? "block" : "hidden"}`}>
           <Link
            to="/"
-            className="block py-2 px-4 hover:bg-gray-700"
+            className="block py-2 px-4 hover:bg-gray-700 text-white"
             onClick={toggleMobileMenu}
           >
             Home
           </Link>
           <Link
             to="/blog"
-            className="block py-2 px-4 hover:bg-gray-700"
+            className="block py-2 px-4 hover:bg-gray-700 text-white"
             onClick={toggleMobileMenu}
           >
             Blog
           </Link>
           <Link
           to="/about"
-          className="block py-2 px-4 hover:bg-gray-700"
+          className="block py-2 px-4 hover:bg-gray-700 text-white"
           onClick={toggleMobileMenu}
         >
           About
         </Link>
         <Link
         to="/services"
-        className="block py-2 px-4 hover:bg-gray-700"
+        className="block py-2 px-4 hover:bg-gray-700 text-white"
         onClick={toggleMobileMenu}
       >
         Services
       </Link>
       <Link
       to="/contact"
-      className="block py-2 px-4 hover:bg-gray-700"
+      className="block py-2 px-4 hover:bg-gray-700 text-white"
       onClick={toggleMobileMenu}
     >
       Contact

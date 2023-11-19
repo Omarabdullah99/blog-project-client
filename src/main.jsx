@@ -6,11 +6,15 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.css'
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import Home from './pages/Home.jsx';
 import Blog from './pages/Blog.jsx';
 import About from './pages/About.jsx';
 import Services from './pages/Services.jsx';
 import Contact from './pages/Contact.jsx';
+import Register from './pages/Register.jsx';
+import {Provider} from 'react-redux'
+import store from "./reudx/store.js";
 
 const router = createBrowserRouter([
   {
@@ -36,13 +40,20 @@ const router = createBrowserRouter([
       {
         path:"/contact",
         element:<Contact />
-      }
+      },
+      {
+        path:"/register",
+        element:<Register />
+      },
+
     ]
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+  <Provider store={store}>
   <RouterProvider router={router} />
+  </Provider>
   </React.StrictMode>,
 )
