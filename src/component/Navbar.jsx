@@ -1,8 +1,9 @@
 // Navigation.js
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { setLogout } from "../reudx/features/AuthSlice";
 
 const Navigation = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -10,16 +11,18 @@ const Navigation = () => {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
-  // const user = {
-  //   results: {
-  //     id: 843784,
-  //     name: "omar",
-  //   },
-  // };
+
   const users= JSON.parse(localStorage.getItem("blogprofile"))
   console.log("localstorage",users)
   const {user}= useSelector((state)=>({...state.authentication}))
   console.log('redux',user)
+  const dispatch=useDispatch()
+  //*Logout
+  const handleLogOut= ()=>{
+    dispatch(setLogout())
+    // console.log("logout")
+  }
+
   return (
     <header className="bg-gray-800 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -38,7 +41,7 @@ const Navigation = () => {
             <a className=" text-white"> Loginas:{user?.result?.name}</a>
             <Link className="text-white px-2" to={"/something"}>Dashboard</Link>
             <Link className="px-1 text-white">Add Blog</Link>
-            <Link className="text-white">Logout</Link>
+            <Link className="text-white" onClick={handleLogOut}>Logout</Link>
           </div>
         ) : (
           <div className="flex-grow md:flex md:justify-center ">

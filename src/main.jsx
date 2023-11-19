@@ -16,6 +16,7 @@ import Register from './pages/Register.jsx';
 import {Provider} from 'react-redux'
 import store from "./reudx/store.js";
 import Login from './pages/Login.jsx';
+import AddEditTour from './component/AddEditTour.jsx';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path:"/login",
         element:<Login />
+      },
+      {
+        path:"/addTour",
+        element:<AddEditTour />
       },
 
     ]
