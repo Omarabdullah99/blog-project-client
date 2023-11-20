@@ -35,7 +35,8 @@ const authSlice= createSlice({
     initialState:{
         user:null,
         error:"",
-        loading:false
+        loading:false,
+        allblogs:[]
     },
     reducers:{
         //!register/login korar por refresh korle oita chole jay. ai problem solve korar jonno
@@ -75,7 +76,7 @@ const authSlice= createSlice({
         [register.rejected]:(state,action)=>{
             state.loading =false;
             state.error= action.payload.message
-        }
+        },
 
     }
 })

@@ -52,7 +52,7 @@ const router = createBrowserRouter([
         element:<Login />
       },
       {
-        path:"/addTour",
+        path:"/addblog",
         element:<AddEditTour />
       },
 

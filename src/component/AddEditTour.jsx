@@ -16,30 +16,30 @@ import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-// import { createTour, getToursByUserId, updateTour } from "../redux/features/tourSlice";
+import { createBlogSlice } from "../reudx/features/BlogSlice";
+
+
 
 const initialState = {
   title: "",
   description: "",
   imageFile:"",
   tags: [],
+  category:""
 };
 
 const AddEditTour = () => {
   const [tourData, setTourData] = useState(initialState);
-  const { title, description,imageFile, tags } = tourData;
+  const { title, description,imageFile, tags,category } = tourData;
 
-//   const { error, loading,userTours } = useSelector((state) => ({ ...state.tour }));
-//   console.log("createtoure",error)
-//   console.log("usetours",userTours)
-  const { user } = useSelector((state) => ({ ...state.authentication })); //* create e user er name er jonno
+  const { user,error } = useSelector((state) => ({ ...state.authentication })); //* create e user er name er jonno
   const userId=user?.result?._id
   const dispatch=useDispatch()
   const navigate=useNavigate()
-//   useEffect(() => {
-//     //!error handle
-//     error && toast.error(error);
-//   }, [error]);
+  useEffect(() => {
+    //!error handle
+    error && toast.error(error);
+  }, [error]);
 
   const handleInputChange = (event, field) => {
     //*every input field controol
@@ -77,43 +77,14 @@ const AddEditTour = () => {
 
 
 
-  //* ---------------------------update tour------------------------------
-//   useEffect(()=>{
-//     dispatch(getToursByUserId(userId))
-// },[userId])
 
-//   const {id}=useParams()
-//   console.log("updateid",id)
-//   useEffect(()=>{
-//     if(id){
-//       const singleTour = userTours.find((tour) => tour._id === id);
-//       console.log("singleTour",singleTour);
-//       setTourData({ ...singleTour })
-//     }
-
-//   },[id])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const updateTourData= await{...tourData, name:user?.result?.name}
-    console.log(updateTourData)
-    
-    // if(title && description && tags){
-    //     const updateTourData= await{...tourData, name:user?.result?.name}
-    //     if(!id){
-    //       dispatch(createTour({updateTourData, navigate, toast}))
-    //       console.log("addTour",updateTourData)
+    const updateBlogData= {...tourData, name:user?.result?.name}
+    console.log("updateBlogData",updateBlogData)
+    dispatch(createBlogSlice({updateBlogData,navigate,toast}))
 
-    //     }else{
-    //       const object={
-    //         updateTourData,id,toast,navigate
-    //       }
-    //       // console.log("dispathc",updateTourData)
-    //       dispatch(updateTour(object))
-    //     }
-        
-        
-    // }
   };
   return (
     <div
@@ -180,6 +151,22 @@ const AddEditTour = () => {
             />
           </MDBValidationItem>
 
+          <MDBValidationItem
+          feedback="Please provide Category"
+          invalid
+          className="col-md-12"
+        >
+          <MDBInput
+            placeholder="Enter Category"
+            type="text"
+            value={category}
+            name="category"
+            onChange={(e) => handleInputChange(e, "category")}
+            className="form-control"
+            required
+          />
+        </MDBValidationItem>
+
             <div className="col-md-12">
               {tags?.map(
                 (
@@ -206,16 +193,7 @@ const AddEditTour = () => {
             </div>
 
             <div className="col-12">
-              <MDBBtn style={{ width: "100%" }}>
-           {/*    {loading && (
-                <MDBSpinner
-                  size="sm"
-                  role="status"
-                  tag="span"
-                  className="me-2"
-                />
-              )} */}
-            {/*  {id ? "Update": "Submit"} */} 
+              <MDBBtn style={{ width: "100%" }}> 
             Submit
               </MDBBtn>
             </div>
