@@ -39,8 +39,8 @@ const Navigation = () => {
         {user?.result ? (
           <div className="flex-grow md:flex md:justify-center ">
             <a className=" text-white"> Loginas:{user?.result?.name}</a>
-            <Link className="text-white px-2" to={"/something"}>Dashboard</Link>
-            <Link className="px-1 text-white">Add Blog</Link>
+            <Link className="text-white px-2" to={"/dashboard"}>Dashboard</Link>
+            <Link to={"/addblog"} className="px-1 text-white">Add Blog</Link>
             <Link className="text-white" onClick={handleLogOut}>Logout</Link>
           </div>
         ) : (

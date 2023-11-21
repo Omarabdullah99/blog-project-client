@@ -15,3 +15,4 @@ export const signUp= (formValue) => API.post("/users/signup", formValue) //*like
 export const signIn= (formValue) => API.post("/users/signin", formValue) //*like Register
 
 export const createBlog= (updateBlogData)=>API.post("/blog/createblog", updateBlogData)
+export const getBlogsByUserId=(userid)=>API.get(`/blog/userblogs/${userid}`) //this id user id

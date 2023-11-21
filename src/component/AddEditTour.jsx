@@ -32,7 +32,9 @@ const AddEditTour = () => {
   const [tourData, setTourData] = useState(initialState);
   const { title, description,imageFile, tags,category } = tourData;
 
-  const { user,error } = useSelector((state) => ({ ...state.authentication })); //* create e user er name er jonno
+  const { user } = useSelector((state) => ({ ...state.authentication })); //* create e user er name er jonno
+
+  const { loading,error } = useSelector((state) => ({ ...state.blog})); //* create e user er name er jonno
   const userId=user?.result?._id
   const dispatch=useDispatch()
   const navigate=useNavigate()
@@ -194,6 +196,9 @@ const AddEditTour = () => {
 
             <div className="col-12">
               <MDBBtn style={{ width: "100%" }}> 
+              {loading && (
+                <MDBSpinner size="sm" role="status" tag="span" className="me-2" />
+              )}
             Submit
               </MDBBtn>
             </div>

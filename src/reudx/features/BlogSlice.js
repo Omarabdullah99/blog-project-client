@@ -14,6 +14,18 @@ export const createBlogSlice= createAsyncThunk("blog/createBlog", async({updateB
     }
 })
 
+export const getBlogsByUserIdSlice = createAsyncThunk(
+    "blog/getBlogsByUserIdSlice",
+    async (userid, { rejectWithValue }) => {
+      try {
+        const response = await api.getBlogsByUserId(userid);
+        return response.data;
+      } catch (err) {
+        return rejectWithValue(err.response.data);
+      }
+    }
+  );
+
 const blogSlice= createSlice({
     name:"blog",
     initialState:{
@@ -36,32 +48,18 @@ const blogSlice= createSlice({
             state.loading =false;
             state.error= action.payload.message
         },
-        // [login.pending]:(state,action)=>{
-        //     state.loading =true
-        // },
-        // [login.fulfilled]:(state, action)=>{
-        //     state.loading =false;
-        //     localStorage.setItem("blogprofile", JSON.stringify({...action.payload}))
-        //     state.user= action.payload
-        // },
-        // [login.rejected]:(state,action)=>{
-        //     state.loading =false;
-        //     console.log("loginaction",action.payload)
-        //     state.error= action.payload.message
-        // },
-        // [register.pending]:(state,action)=>{
-        //     state.loading =true
-        // },
-        // [register.fulfilled]:(state, action)=>{
-        //     state.loading =false;
-        //     localStorage.setItem("blogprofile", JSON.stringify({...action.payload}))
-        //     state.user= action.payload
-        //     console.log("registeraction",action.payload)
-        // },
-        // [register.rejected]:(state,action)=>{
-        //     state.loading =false;
-        //     state.error= action.payload.message
-        // }
+        [getBlogsByUserIdSlice.pending]:(state,action)=>{
+            state.loading =true
+        },
+        [getBlogsByUserIdSlice.fulfilled]:(state, action)=>{
+            state.loading =false;
+            state.userblog= [...action.payload]
+            console.log('getBlogsByUserId',action.payload)
+        },
+        [getBlogsByUserIdSlice.rejected]:(state,action)=>{
+            state.loading =false;
+            state.error= action.payload.message
+        },
 
     }
 })
