@@ -26,6 +26,22 @@ export const getBlogsByUserIdSlice = createAsyncThunk(
     }
   );
 
+  export const updateBlogSlice = createAsyncThunk(
+    "blog/updateBlogSlice",
+    async (object, { rejectWithValue }) => {
+      const {updateBlogData,id,toast,navigate}=object
+      console.log(object)
+      try {
+        const response = await api.updateBlog(updateBlogData, id);
+        toast.success("Tour Updated Successfully");
+        navigate("/");
+        return response.data;
+      } catch (err) {
+        return rejectWithValue(err.response.data);
+      }
+    }
+  );
+
 const blogSlice= createSlice({
     name:"blog",
     initialState:{
@@ -57,6 +73,24 @@ const blogSlice= createSlice({
             console.log('getBlogsByUserId',action.payload)
         },
         [getBlogsByUserIdSlice.rejected]:(state,action)=>{
+            state.loading =false;
+            state.error= action.payload.message
+        },
+        [updateBlogSlice.pending]:(state,action)=>{
+            state.loading =true
+        },
+        [updateBlogSlice.fulfilled]:(state, action)=>{
+            state.loading =false;
+            const {
+              arg: { id },
+            } = action.meta;
+            if (id) {
+              state.userblog = state.userblog.map((item) =>
+              item._id === id ? action.payload : item
+            );    
+            }
+        },
+        [updateBlogSlice.rejected]:(state,action)=>{
             state.loading =false;
             state.error= action.payload.message
         },

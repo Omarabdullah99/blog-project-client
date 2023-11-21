@@ -16,7 +16,7 @@ import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import { createBlogSlice } from "../reudx/features/BlogSlice";
+import { createBlogSlice, getBlogsByUserIdSlice, updateBlogSlice } from "../reudx/features/BlogSlice";
 
 
 
@@ -31,13 +31,28 @@ const initialState = {
 const AddEditTour = () => {
   const [tourData, setTourData] = useState(initialState);
   const { title, description,imageFile, tags,category } = tourData;
-
-  const { user } = useSelector((state) => ({ ...state.authentication })); //* create e user er name er jonno
-
-  const { loading,error } = useSelector((state) => ({ ...state.blog})); //* create e user er name er jonno
+  const { user } = useSelector((state) => ({ ...state.authentication }));
+  const { loading,error,userblog } = useSelector((state) => ({ ...state.blog})); 
+  const{id}=useParams()
+  console.log("editblog",id)
   const userId=user?.result?._id
   const dispatch=useDispatch()
   const navigate=useNavigate()
+
+  useEffect(()=>{
+    dispatch(getBlogsByUserIdSlice(userId))
+},[userId])
+
+useEffect(()=>{
+  if(id){
+    const singleTour = userblog.find((tour) => tour._id === id);
+    console.log("singleTour",singleTour);
+    setTourData({ ...singleTour })
+  }
+
+},[id])
+
+console.log("editalluser",userblog)
   useEffect(() => {
     //!error handle
     error && toast.error(error);
@@ -78,15 +93,22 @@ const AddEditTour = () => {
   };
 
 
-
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updateBlogData= {...tourData, name:user?.result?.name}
-    console.log("updateBlogData",updateBlogData)
-    dispatch(createBlogSlice({updateBlogData,navigate,toast}))
+        if(!id){
+        dispatch(createBlogSlice({updateBlogData, navigate, toast}))
+        console.log("addTour",updateBlogData)
 
+      }else{
+        const object={
+          updateBlogData,id,toast,navigate
+        }
+        // console.log("dispathc",updateTourData)
+        dispatch(updateBlogSlice(object))
+      }
+    // console.log("updateBlogData",updateBlogData)
+    // dispatch(createBlogSlice({updateBlogData,navigate,toast}))
   };
   return (
     <div
@@ -101,7 +123,7 @@ const AddEditTour = () => {
     >
       <MDBCard alignment="center">
        {/*  <h5>{id ? "Update Tour" : "Add Tour"}</h5> */}
-       <h5>Add Tour</h5>
+      {id ? (<h1 className="text-xl font-bold">Update Blogs</h1>) : (<h5>Add Tour</h5>)} 
 
         <MDBCardBody>
           <MDBValidation onSubmit={handleSubmit} className="row g-3">

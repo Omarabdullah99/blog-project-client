@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { getBlogsByUserIdSlice } from '../reudx/features/BlogSlice'
 import { HiOutlineTrash } from "react-icons/hi";
 import { IoAddCircleOutline } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 
 const Dashboard = () => {
@@ -43,7 +44,7 @@ const Dashboard = () => {
         </div>
         <div className='flex gap-3 '>
         <HiOutlineTrash className='text-red-500 font-bold text-2xl' />
-        <IoAddCircleOutline className='text-sky-600 font-bold text-2xl' />
+       <Link to={`/editblog/${blog?._id}`}><IoAddCircleOutline className='text-sky-600 font-bold text-2xl' /></Link> 
         </div>
         </div>
     ))}

@@ -60,6 +60,10 @@ const router = createBrowserRouter([
         path:"/dashboard",
         element:<Dashboard />
       },
+      {
+        path:"/editblog/:id",
+        element:<AddEditTour />
+      }
 
     ]
   },
