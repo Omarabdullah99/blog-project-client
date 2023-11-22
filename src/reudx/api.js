@@ -17,3 +17,4 @@ export const signIn= (formValue) => API.post("/users/signin", formValue) //*like
 export const createBlog= (updateBlogData)=>API.post("/blog/createblog", updateBlogData)
 export const getBlogsByUserId=(userid)=>API.get(`/blog/userblogs/${userid}`) //this id user id
 export const updateBlog = (updateBlogData, id) => { API.patch(`/blog/${id}`, updateBlogData);}
+export const deleteBlog=(id)=>API.delete(`/blog/deleteblog/${id}`)

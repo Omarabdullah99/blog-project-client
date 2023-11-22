@@ -1,10 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import { getBlogsByUserIdSlice } from '../reudx/features/BlogSlice'
+import { deleteBlogSlice, getBlogsByUserIdSlice } from '../reudx/features/BlogSlice'
 import { HiOutlineTrash } from "react-icons/hi";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 
 const Dashboard = () => {
@@ -27,7 +28,13 @@ const Dashboard = () => {
     }
     return str;
   };
-    
+  
+  const handleDelete=(id)=>{
+    if (window.confirm("Are you sure you want to delete this tour ?")) {
+      dispatch(deleteBlogSlice({ id, toast }));
+    }
+    console.log("dashboarddelete",id)
+  }
 
   return (
     
@@ -43,7 +50,7 @@ const Dashboard = () => {
         <p>{excerpt(blog?.description) }</p> 
         </div>
         <div className='flex gap-3 '>
-        <HiOutlineTrash className='text-red-500 font-bold text-2xl' />
+        <HiOutlineTrash className='text-red-500 font-bold text-2xl' onClick={()=>handleDelete(blog?._id)} />
        <Link to={`/editblog/${blog?._id}`}><IoAddCircleOutline className='text-sky-600 font-bold text-2xl' /></Link> 
         </div>
         </div>
