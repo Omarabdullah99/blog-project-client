@@ -13,6 +13,7 @@ API.interceptors.request.use((req)=>{
 
 
 export const getAllBlogs=()=>API.get("/blog/allblogs") //*get All blogs
+export const getBlog=(id)=>API.get(`/blog/${id}`) //*get blog by id
 
 export const signUp= (formValue) => API.post("/users/signup", formValue) //*like Register
 export const signIn= (formValue) => API.post("/users/signin", formValue) //*like Register

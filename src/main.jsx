@@ -18,6 +18,7 @@ import store from "./reudx/store.js";
 import Login from './pages/Login.jsx';
 import AddEditTour from './component/AddEditTour.jsx';
 import Dashboard from './pages/Dashboard.jsx';
+import SingleBlog from './pages/SingleBlog.jsx';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path:"/blog",
         element:<Blog />
+      },
+      {
+        path:"/blog/:id",
+        element:<SingleBlog />
       },
       {
         path:"/about",

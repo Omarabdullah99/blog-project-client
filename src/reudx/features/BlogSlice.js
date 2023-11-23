@@ -28,6 +28,18 @@ export const getAllBlogsSlice = createAsyncThunk(
   }
 );
 
+export const getBlogbyIdSlice = createAsyncThunk(
+  "blog/getBlogbyIdSlice",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.getBlog(id);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const getBlogsByUserIdSlice = createAsyncThunk(
     "blog/getBlogsByUserIdSlice",
     async (userid, { rejectWithValue }) => {
@@ -104,6 +116,18 @@ const blogSlice= createSlice({
           state.loading =false;
           state.error= action.payload.message
       },
+      [getBlogbyIdSlice.pending]:(state,action)=>{
+        state.loading =true
+    },
+    [getBlogbyIdSlice.fulfilled]:(state, action)=>{
+        state.loading =false;
+        state.blog= action.payload
+        console.log("getBlogById",action.payload)
+    },
+    [getBlogbyIdSlice.rejected]:(state,action)=>{
+        state.loading =false;
+        state.error= action.payload.message
+    },
         [getBlogsByUserIdSlice.pending]:(state,action)=>{
             state.loading =true
         },
