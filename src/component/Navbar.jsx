@@ -1,9 +1,10 @@
 // Navigation.js
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setLogout } from "../reudx/features/AuthSlice";
+import { getAllBlogsSlice } from "../reudx/features/BlogSlice";
 
 const Navigation = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,15 +14,26 @@ const Navigation = () => {
   };
 
   const users= JSON.parse(localStorage.getItem("blogprofile"))
-  console.log("localstorage",users)
+  // console.log("localstorage",users)
   const {user}= useSelector((state)=>({...state.authentication}))
-  console.log('redux',user)
+ // console.log('redux',user)
+
+ const {allblog}= useSelector((state)=>({...state.blog}))
+ console.log("navbar",allblog)
   const dispatch=useDispatch()
+
+  useEffect(() => {
+    if (!allblog.length) {
+      dispatch(getAllBlogsSlice());
+    }
+  }, [dispatch, allblog]);
   //*Logout
   const handleLogOut= ()=>{
     dispatch(setLogout())
     // console.log("logout")
   }
+
+
 
   return (
     <header className="bg-gray-800 text-white p-4">

@@ -6,9 +6,12 @@ import BlogePage from '../component/BlogePage'
 const Home = () => {
   return (
 
-    <div >
+    <div   >
     <Banner />
+    <div className='w-4/5 mx-auto'>
     <BlogePage />
+    </div>
+    
     </div>
   
   )

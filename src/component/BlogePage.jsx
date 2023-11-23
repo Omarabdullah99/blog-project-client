@@ -4,6 +4,7 @@ import BlogCard from "./BlogCard";
 import Paginaation from "./Paginaation";
 import CategorySelection from "./CategorySelection";
 import Sidebar from "./Sidebar";
+import { useSelector } from "react-redux";
 
 const BlogePage = () => {
   const [blogs, setBlogs] = useState([]);
@@ -35,6 +36,9 @@ const BlogePage = () => {
     setCurrentPage(1)
   setActiveCategory(category)
   }
+
+  const {allblog}= useSelector((state)=>({...state.blog}))
+  console.log("blogpage",allblog)
   return (
     <div>
       {/*----------category section----- */}
