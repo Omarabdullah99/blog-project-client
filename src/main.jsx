@@ -19,6 +19,7 @@ import Login from './pages/Login.jsx';
 import AddEditTour from './component/AddEditTour.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import SingleBlog from './pages/SingleBlog.jsx';
+import SearchBlog from './pages/SearchBlog.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path:"/",
         element:<Home />
+      },
+      {
+        path:"/blogs/search",
+        element:<SearchBlog />
       },
       {
         path:"/blog",

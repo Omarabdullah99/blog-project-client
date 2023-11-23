@@ -26,7 +26,7 @@ const BlogCard = ({ blogs,currentPage,selectedCategory,pageSize }) => {
     <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
       {blogCard &&
         blogCard.map((blog) => (
-          <div key={blog?.id} className="p-3 shadow-lg rounded cursor-pointer text-black h-96">
+          <div key={blog?.id} className="p-3 shadow-lg rounded cursor-pointer text-black h-[400px]">
             <div>
               <img src={blog?.imageFile} alt="" className="w-fit" />
             </div>

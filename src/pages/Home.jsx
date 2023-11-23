@@ -8,7 +8,7 @@ const Home = () => {
 
     <div   >
     <Banner />
-    <div className='w-4/5 mx-auto'>
+    <div className='w-[90%] mx-auto'>
     <BlogePage />
     </div>
     

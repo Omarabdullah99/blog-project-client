@@ -4,7 +4,10 @@ import BlogCard from "./BlogCard";
 import Paginaation from "./Paginaation";
 import CategorySelection from "./CategorySelection";
 import Sidebar from "./Sidebar";
-import { useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
+import { IoIosSearch } from "react-icons/io";
+import { searchBlogsSlice } from "../reudx/features/BlogSlice";
+import { useNavigate } from "react-router-dom";
 
 const BlogePage = () => {
   const [blogs, setBlogs] = useState([]);
@@ -12,6 +15,9 @@ const BlogePage = () => {
   const pageSize=12;
   const [selectedCategory,setSelectedCategory]=useState(null)
   const [activeCategory,setActiveCategory]=useState(null)
+  const [search, setSearch] = useState("");
+const dispatch =useDispatch()
+const navigate=useNavigate()
 
   useEffect(() => {
     async function fetchBlog() {
@@ -37,14 +43,42 @@ const BlogePage = () => {
   setActiveCategory(category)
   }
 
-  const {allblog}= useSelector((state)=>({...state.blog}))
-  console.log("blogpage",allblog)
+ 
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (search) {
+      dispatch(searchBlogsSlice(search));
+      navigate(`/blogs/search?searchQuery=${search}`);
+      setSearch("");
+    } else {
+      navigate("/");
+    }
+  };
   return (
     <div>
       {/*----------category section----- */}
       <div>
       <CategorySelection onSelectCategory={handleCategoryChange} selectedCategory={selectedCategory} activeCategory={activeCategory} />
       </div>
+
+      {/*----------search section----- */}
+      <div className="w-3/5 mb-5">
+      <form className="d-flex input-group" onSubmit={handleSubmit} >
+      <input
+        type="text"
+        className="form-control"
+        placeholder="Search blog title"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        
+      />
+      <div style={{ marginTop: "5px", marginLeft: "5px" }}>
+        <IoIosSearch  />
+      </div>
+    </form>
+    </div>
+
       {/*----------blogcard section----- */}
       <div className="flex flex-col lg:flex-row gap-10">
       {/*----------blogcard component----- */}
