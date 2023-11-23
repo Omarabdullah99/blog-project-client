@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { getBlogbyIdSlice } from '../reudx/features/BlogSlice'
 import moment from 'moment'
 import { SlCalender } from "react-icons/sl";
@@ -24,7 +24,9 @@ const SingleBlog = () => {
     <h3>{blog?.title}</h3>
       <p className="text-[#F48FB1] font-bold">Created By: {blog?.name}</p>
       <span className="text-start">
-      {blog && blog?.tags && blog?.tags?.map((item) => `#${item} `)}
+       {blog?.tags?.map((tag) => (
+            <Link key={tag} to={`/blog/tag/${tag}`}> #{tag}</Link>
+          ))}  
     </span>
     <p className='flex items-center gap-1'> <SlCalender /> {moment(blog?.createdAt).fromNow()} </p>
     <p> {blog?.description} </p>

@@ -20,6 +20,7 @@ import AddEditTour from './component/AddEditTour.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import SingleBlog from './pages/SingleBlog.jsx';
 import SearchBlog from './pages/SearchBlog.jsx';
+import TagsBlog from './pages/TagsBlog.jsx';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path:"/blogs/search",
         element:<SearchBlog />
+      },
+      {
+        path:"/blog/tag/:tag",
+        element:<TagsBlog />
       },
       {
         path:"/blog",

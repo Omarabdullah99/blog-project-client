@@ -52,6 +52,18 @@ export const searchBlogsSlice = createAsyncThunk(
   }
 );
 
+export const getBlogsByTagSlice = createAsyncThunk(
+  "blog/getBlogsByTagSlice",
+  async (tag, { rejectWithValue }) => {
+    try {
+      const response = await api.getTagBlogs(tag);
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const getBlogsByUserIdSlice = createAsyncThunk(
     "blog/getBlogsByUserIdSlice",
     async (userid, { rejectWithValue }) => {
@@ -101,6 +113,7 @@ const blogSlice= createSlice({
         allblog:[], //*allBlogs
         userblog:[], //*login Blogs
         searchBlog:[],
+        tagsBlog:[],
         error:"",
         loading:false
     },
@@ -150,6 +163,18 @@ const blogSlice= createSlice({
       console.log("serachBlogaction", action.payload);
     },
     [searchBlogsSlice.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+    [getBlogsByTagSlice.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getBlogsByTagSlice.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.tagsBlog = action.payload;
+      console.log("serachBlogaction", action.payload);
+    },
+    [getBlogsByTagSlice.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     },
