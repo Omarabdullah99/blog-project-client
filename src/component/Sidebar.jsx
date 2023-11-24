@@ -45,7 +45,7 @@ const Sidebar = () => {
         latestblog?.slice(0,5).map((latest)=>(
             <div key={latest._id} className=''>
             <div>
-            <img src={latest.imageFile} alt=""/>
+            <img src={latest.imageFile} alt="" className='md:w-52 lg:w-full'/>
             </div>
             <div>
             <h4 className='text-sm'> {titleexcerpt(latest?.title)} </h4>
@@ -58,20 +58,6 @@ const Sidebar = () => {
     </div>
     </div>
 
-
-    <div>
-    <h3 className='mt-10 font-bold mb-1 border-b-2 rounded-sm'>Popular Blogs</h3>
-    <div>
-    {
-        popularBlog.slice(1,5).map((popular)=>(
-            <div key={popular.id}>
-            <h4 className='text-sm'> {popular.title} </h4>
-            <Link to={""} className='font-medium py-1 hover:text-orange-500'> <p className=''>Read More </p> </Link>
-            </div>
-        ))
-    }
-    </div>
-    </div>
     </div>
   )
 }

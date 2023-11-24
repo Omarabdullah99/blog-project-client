@@ -8,9 +8,8 @@ import { getBlogsByTagSlice } from '../reudx/features/BlogSlice';
 
 
 const TagsBlog = () => {
-    const {searchBlog,tagsBlog}= useSelector((state)=>({...state.blog}))
+    const {tagsBlog}= useSelector((state)=>({...state.blog}))
     const dispatch=useDispatch()
-    const navigate=useNavigate()
     const { tag } = useParams();
     console.log("tags",tag)
 
@@ -43,11 +42,6 @@ const TagsBlog = () => {
           <div>
             <img src={blog?.imageFile} alt="" className="w-fit" />
           </div>
-          <span className="">
-          {blog?.tags?.map((tag) => (
-              `#${tag}`
-          ))}
-        </span>
           <h3 className=" mb-2 font-bold text-sm cursor-pointer"> {titleexcerpt(blog?.title)} </h3>
          <Link to={`/blog/${blog?._id}`}> <p className="text-black"> {excerpt(blog?.description)}see more</p></Link>
           <p className="mb-2 text-sm text-gray-500"><FaUser className="inline-flex items-center mr-2" /> {blog?.name}</p>

@@ -1,0 +1,10 @@
+.card-wrapper {
+    position: relative;
+  }
+  
+  .last {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
