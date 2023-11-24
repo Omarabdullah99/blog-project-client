@@ -80,7 +80,7 @@ const navigate=useNavigate()
     </div>
 
       {/*----------blogcard section----- */}
-      <div className="flex flex-col lg:flex-row gap-10">
+      <div className="flex flex-col lg:flex-row gap-3">
       {/*----------blogcard component----- */}
        <BlogCard blogs={blogs} currentPage={currentPage} selectedCategory={selectedCategory} pageSize={pageSize} /> 
 

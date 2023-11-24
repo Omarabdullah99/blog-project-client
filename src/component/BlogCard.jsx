@@ -3,6 +3,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {FaUser} from 'react-icons/fa'
+import './blogcard.css'
 
 const BlogCard = ({ blogs,currentPage,selectedCategory,pageSize }) => {
   const blogCard = blogs.filter((blogs)=> !selectedCategory || blogs.category === selectedCategory).slice((currentPage - 1) * pageSize, currentPage * pageSize);
@@ -23,10 +24,10 @@ const BlogCard = ({ blogs,currentPage,selectedCategory,pageSize }) => {
     return str;
   };
   return (
-    <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8">
+    <div className="cardclass  grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3 h-[400px]">
       {blogCard &&
         blogCard.map((blog) => (
-          <div key={blog?.id} className="p-10 shadow-lg rounded cursor-pointer text-black h-[400px]">
+          <div key={blog?.id} className="p-5 shadow-lg rounded cursor-pointer text-black h-[400px]">
             <div>
               <img src={blog?.imageFile} alt="" className="w-fit" />
             </div>
