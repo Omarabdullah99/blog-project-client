@@ -20,6 +20,7 @@ export const getTagBlogs = (tag) => API.get(`/blog/tag/${tag}`);
 
 export const signUp= (formValue) => API.post("/users/signup", formValue) //*like Register
 export const signIn= (formValue) => API.post("/users/signin", formValue) //*like Register
+export const alluser=()=>API.get("users/allusers")
 
 export const createBlog= (updateBlogData)=>API.post("/blog/createblog", updateBlogData)
 export const getBlogsByUserId=(userid)=>API.get(`/blog/userblogs/${userid}`) //this id user id

@@ -19,6 +19,7 @@ const BlogCardCopy = ({
     _id,
     name,
     likes,
+    creator
 }) => {
     const excerpt = (str) => {
         if (str?.length > 30) {
@@ -90,10 +91,10 @@ const BlogCardCopy = ({
           {excerpt(description)}see more
         </p>
       </Link>
-      <p className="mb-2 text-sm text-gray-500">
+     <Link to={`/userblog/${creator}`}><p className="mb-2 text-sm text-gray-500">
         <FaUser className="inline-flex items-center mr-2" />{" "}
-        {name}
-      </p>
+        {name} (see other blogs this user)
+      </p> </Link> 
     </div>
     <div className="last flex justify-between place-items-center">
     <MDBBtn

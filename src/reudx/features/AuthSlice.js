@@ -30,13 +30,25 @@ export const register= createAsyncThunk("auth/register", async({formValue,naviga
     }
 })
 
+export const getAllUserSlice = createAsyncThunk(
+    "auth/getAllUserSlice",
+    async (_, { rejectWithValue }) => {
+      try {
+        const response = await api.alluser();
+        return response.data;
+      } catch (err) {
+        return rejectWithValue(err.response.data);
+      }
+    }
+  );
+
 const authSlice= createSlice({
     name:"authentication",
     initialState:{
         user:null,
         error:"",
         loading:false,
-        allblogs:[]
+        allusers:[]
     },
     reducers:{
         //!register/login korar por refresh korle oita chole jay. ai problem solve korar jonno
@@ -77,6 +89,17 @@ const authSlice= createSlice({
             state.loading =false;
             state.error= action.payload.message
         },
+        [getAllUserSlice.pending]: (state, action) => {
+            state.loading = true;
+          },
+          [getAllUserSlice.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.allusers = action.payload;
+          },
+          [getAllUserSlice.rejected]: (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          },
 
     }
 })

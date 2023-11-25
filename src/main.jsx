@@ -21,6 +21,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import SingleBlog from './pages/SingleBlog.jsx';
 import SearchBlog from './pages/SearchBlog.jsx';
 import TagsBlog from './pages/TagsBlog.jsx';
+import UserBlog from './pages/UserBlog.jsx';
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
       {
         path:"/editblog/:id",
         element:<AddEditTour />
+      },
+      {
+        path:"/userblog/:userId",
+        element:<UserBlog />
       }
 
     ]
