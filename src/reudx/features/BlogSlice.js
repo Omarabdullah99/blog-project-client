@@ -122,18 +122,16 @@ export const deleteBlogSlice = createAsyncThunk(
 
 export const likeBlogSlice = createAsyncThunk(
   "blog/likeBlogSlice",
-  async ({_id }, { rejectWithValue }) => {
+  async ({ _id }, { rejectWithValue }) => {
     try {
       const response = await api.likeBlog(_id);
-      console.log('likeresponse',response.data)
+      console.log("likeresponse", response.data);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
   }
 );
-
-
 
 const blogSlice = createSlice({
   name: "blog",
@@ -147,6 +145,7 @@ const blogSlice = createSlice({
     error: "",
     loading: false,
   },
+ 
   extraReducers: {
     [createBlogSlice.pending]: (state, action) => {
       state.loading = true;
@@ -166,7 +165,6 @@ const blogSlice = createSlice({
     [getAllBlogsSlice.fulfilled]: (state, action) => {
       state.loading = false;
       state.allblog = action.payload;
-      console.log("getAllTours", action.payload);
     },
     [getAllBlogsSlice.rejected]: (state, action) => {
       state.loading = false;
@@ -273,8 +271,8 @@ const blogSlice = createSlice({
       const {
         arg: { _id },
       } = action.meta;
-      console.log("likemeta",action.meat)
-      console.log("likepaylod",action.payload)
+      console.log("likemeta", action.meat);
+      console.log("likepaylod", action.payload);
       if (_id) {
         state.allblog = state?.allblog?.map((item) =>
           item._id === _id ? action.payload : item

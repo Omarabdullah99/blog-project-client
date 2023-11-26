@@ -3,22 +3,28 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector} from "react-redux";
 import { IoIosSearch } from "react-icons/io";
-import { getAllBlogsSlice, searchBlogsSlice } from "../reudx/features/BlogSlice";
+import { getAllBlogsSlice, searchBlogsSlice} from "../reudx/features/BlogSlice";
 import { useNavigate } from "react-router-dom";
 import BlogCardCopy from "./BlogCardCopy";
+import ReactPaginate from "react-paginate";
+import Pagination from "./Pagination";
 
 const BlogePage = () => {
   const [search, setSearch] = useState("");
+  const [itemOffset, setItemOffset] = useState(0);
+  const [items, setData] = useState([]);
+
 const dispatch =useDispatch()
 const navigate=useNavigate()
 
-  const {allblog}= useSelector((state)=>({...state.blog}))
+  const {allblog,}= useSelector((state)=>({...state.blog}))
+  // console.log('blogcurrent',currentPage)
 
   useEffect(() => {
     if (!allblog.length) {
       dispatch(getAllBlogsSlice());
     }
-  }, [dispatch, allblog]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,6 +35,26 @@ const navigate=useNavigate()
     } else {
       navigate("/");
     }
+  };
+
+/*pagination */
+
+  useEffect(() => {
+    setData(allblog);
+  }, [allblog]);
+
+  const itemsPerPage = 8;
+
+  const endOffset = itemOffset + itemsPerPage;
+
+  const currentItems = items?.slice(itemOffset, endOffset);
+  const pageCount = Math?.ceil(items?.length / itemsPerPage);
+const handlePageClick = (event) => {
+    const newOffset = (event?.selected * itemsPerPage) % items?.length;
+    console.log(
+      `User requested page number ${event?.selected}, which is offset ${newOffset}`
+    );
+    setItemOffset(newOffset);
   };
   return (
     <div>
@@ -53,12 +79,18 @@ const navigate=useNavigate()
     </form>
     </div>
 
-      {/*  <BlogCard allblog={allblog} blogs={blogs} currentPage={currentPage} selectedCategory={selectedCategory} pageSize={pageSize}  />  */}
-
-      <div className="flex flex-col-reverse lg:flex-row gap-4">
-      <div className="cardclass grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3 h-[400px]"> 
-      {allblog &&
-        allblog?.map((item) => <BlogCardCopy key={item._id} {...item} />)}
+      <div className="flex flex-col-reverse lg:flex-row gap-10 ">
+  
+  {/*    <div className="cardclass grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3 h-[400px]"> 
+      {currentItems.length >0 &&
+        currentItems?.map((item) => <BlogCardCopy key={item._id} {...item} />)}
+      </div>  */} 
+      <div> 
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {currentItems.length >0 &&
+        currentItems?.map((item) => <BlogCardCopy key={item._id} {...item} />)}
+      </div>
+      <Pagination handlePageClick={handlePageClick} pageCount={pageCount} />
       
       </div>
       <div><Sidebar /></div>

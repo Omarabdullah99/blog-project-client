@@ -16,12 +16,6 @@ const Sidebar = () => {
     },[])
     console.log('slider-latestblog',latestblog)
 
-    useEffect(()=>{
-        fetch('http://localhost:5000/blogs')
-        .then(res=> res.json())
-        .then(data => setPopularBlog(data.slice(0,15)))
-
-    },[])
     console.log("popularblog",popularBlog)
     const excerpt = (str) => {
         if (str?.length > 45) {
@@ -36,13 +30,25 @@ const Sidebar = () => {
         }
         return str;
       };
+
+      const populartag=["sports","ai","health","tech","cr7" ]
+      console.log("side-popular",populartag)
   return (
     <div>
+    <h1 className="text-3xl font-bold">Popular tags</h1>
+    <span className="">
+    {populartag?.map((tag) => (
+      <Link key={tag} to={`/blog/tag/${tag}`} >
+        {" "}
+        #{tag}
+      </Link>
+    ))}
+  </span>
     <div>
-    <h3 className='font-bold mb-1 border-b-2 rounded-sm'>Latest Blogs</h3>
+    <h3 className='font-bold mt-5 mb-1 border-b-2 rounded-sm'>Latest Blogs</h3>
     <div>
     {
-        latestblog?.slice(0,5).map((latest)=>(
+        latestblog?.slice(0,7).map((latest)=>(
             <div key={latest._id} className=''>
             <div>
             <img src={latest.imageFile} alt="" className='md:w-52 lg:w-full'/>

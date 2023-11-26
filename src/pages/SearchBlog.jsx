@@ -30,7 +30,7 @@ const SearchBlog = () => {
           </div>
           <h3 className=" mb-2 font-bold text-sm cursor-pointer"> {titleexcerpt(blog?.title)} </h3>
          <Link to={`/blog/${blog?._id}`}> <p className="text-black"> {excerpt(blog?.description)}see more</p></Link>
-          <p className="mb-2 text-sm text-gray-500"><FaUser className="inline-flex items-center mr-2" /> {blog?.name}</p>
+        <Link to={`/userblog/${blog?.creator}`}> <p className="mb-2 text-sm text-gray-500"><FaUser className="inline-flex items-center mr-2" /> {blog?.name}</p> </Link> 
         </div>
       ))}
   </div>

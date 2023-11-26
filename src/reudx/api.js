@@ -12,7 +12,7 @@ API.interceptors.request.use((req)=>{
 })
 
 
-export const getAllBlogs=()=>API.get("/blog/allblogs") //*get All blogs
+export const getAllBlogs=()=>API.get('/blog/allblogs') //*get All blogs
 export const getLatestBlogs=()=>API.get("/blog/latestblog")
 export const getBlog=(id)=>API.get(`/blog/${id}`) //*get blog by id
 export const getBlogsBySearch = (searchQuery) => API.get(`/blog/search?searchQuery=${searchQuery}`);
