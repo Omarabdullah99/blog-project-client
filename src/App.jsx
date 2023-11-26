@@ -25,6 +25,7 @@ function App() {
     <>
     <Navigation />
     <Outlet />
+    <Footer />
     <ToastContainer />
     </>
   )
